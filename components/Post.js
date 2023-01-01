@@ -74,15 +74,15 @@ const Post = ({ id, post, postPage }) => {
                         <span className='hover:underline text-sm sm:text-[15px] ml-3 mb-0.5'>
                             <Moment fromNow >{post?.timestamp?.toDate()}</Moment>
                         </span>
-                        {!postPage && (<p className='text-[#d9d9d9] text-[15px] sm:text-base mt-0.5'>{post?.text}</p>)}
+                        {/* {!postPage && (<p className='text-[#d9d9d9] text-[15px] sm:text-base mt-0.5'>{post?.text}</p>)} */}
                            <div className='icon group flex-shrink-0 ml-auto'>
                         <EllipsisHorizontalIcon className='h-5 text-[#6e767d] group-hover:text-[#1d9bf0]' />
                     </div>
                     </div>
                  
-                    {postPage && (
+               
                         <p className='text-[#d9d9d9] text-[15px] py-3 sm:text-base mt-0.5'>{post?.text}</p>
-                    )}
+                  
                     <img src={post?.image} alt="" className={`${postPage ? "rounded-md" : "rounded-2xl"} max-h-[700px] object-cover mr-2`} />
                     <div className={`text-[#6e767d] flex justify-between w-[10/12] ${postPage && 'px-10'}`}>
                         <div className='flex items-center space-x-1 group pt-3'

@@ -64,8 +64,7 @@ const Input = () => {
         let sym = e.unified.split("-");
         let codesArray = [];
         sym.forEach((el) => codesArray.push("0x" + el))
-        console.log(codesArray)
-        let emoji = String.fromCodePoint(...codesArray);
+            let emoji = String.fromCodePoint(...codesArray);
         setInput(input + emoji)
     }
 

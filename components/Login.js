@@ -3,7 +3,6 @@ import { signIn } from 'next-auth/react'
 
 const Login = ({ providers }) => {
 
-    console.log(process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID)
 
     return (
         <div className='flex flex-col items-center space-y-20 pt-48'>

@@ -10,7 +10,6 @@ const firebaseConfig = {
     appId: process.env.NEXT_PUBLIC_APP_ID,
 };
 
-console.log(process.env.NEXT_PUBLIC_API_KEY)
 
 const firebase = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 const db = getFirestore(firebase);

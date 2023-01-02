@@ -3,7 +3,7 @@ import { db } from '../firebase'
 import { useSession } from 'next-auth/react'
 import { Dialog, Transition } from '@headlessui/react'
 import { useRecoilState } from 'recoil'
-import { modalState, postIdState } from '../atoms/modalAtom'
+import { modalState, ModeState, postIdState } from '../atoms/modalAtom'
 import { XMarkIcon , ChartBarIcon , FaceSmileIcon , PhotoIcon , CalendarIcon} from '@heroicons/react/24/outline'
 import { useRouter } from 'next/router'
 import Moment from 'react-moment'
@@ -16,6 +16,7 @@ const TailModal = () => {
     const [post , setPost] = useState();
     const [comment , setComment] = useState("")
     const router = useRouter();
+    const [isOn, setIsOn] = useRecoilState(ModeState);
     
     useEffect(
         () => onSnapshot(doc(db, "posts", postId) , (snapShot) => {
@@ -23,11 +24,10 @@ const TailModal = () => {
         })
     , [db])
     
-    console.log(postId)
-
+   
     const sendComment = async (e) => {
         e.preventDefault()
-        console.log("run")
+       
         await addDoc(collection(db,'posts',postId,"comments"),{
             comment:comment,
             username:session.user.name,
@@ -67,15 +67,15 @@ const TailModal = () => {
       leaveFrom="opacity-100 translate-y-0 sm:scale-100"
       leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
     >
-      <div className="inline-block align-bottom bg-black rounded-2xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-xl sm:w-full">
+      <div className={`inline-block align-bottom ${isOn ? 'bg-white' : 'bg-black'} rounded-2xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-xl sm:w-full`}>
         <div className='flex items-center px-1.5 py-2 border-b border-gray-700'>
             <div className="hoverAnimation w-9 h-9 flex items-center justify-center xl:px-0">
-                <XMarkIcon  className='h-[22px] text-white' />
+                <XMarkIcon onClick={()=>setIsOpen(false)}  className={`h-[22px] ${isOn ? 'text-black' : 'text-white'}`} />
             </div>
         </div>
         <div className='flex px-4 pt-5 pb-2.5 sm:px-6'>
             <div className='w-full'>
-                <div className='text-[#6e767d] flex gap-3 relative'>
+                <div className={`${isOn ? 'text-gray-600' : ' text-[#6e767d] '} flex gap-3 relative`}>
                     <span className='w-[0.5] h-full z-[-1] absolute left-5 top-11 bg-gray-600'/>
                     <img 
                     src={post?.userImg} alt=""
@@ -83,8 +83,8 @@ const TailModal = () => {
                     />
                     <div>
                         <div className='inline-block group'>
-                            <h4 className='font-bold text-[15px] sm:text-base text-[#d9d9d9]
-                            inline-block'>{post?.username}</h4>
+                            <h4 className={`font-semibold text-[15px] sm:text-base ${isOn ? 'text-black' : ' text-[#d9d9d9 '} ]
+                            inline-block`}>{post?.username}</h4>
                             <span className='ml-1.5 text-sm sm:text-[15px]'>
                                 @{post?.tag}
                             </span>
@@ -95,7 +95,7 @@ const TailModal = () => {
                     <Moment fromNow={post?.timestamp?.toDate()}></Moment>
                     </span>
                 </div>
-                    <p className='text-[#d9d9d9] text-[15px] sm:text-base'>{post?.text}</p>
+                    <p className={`${isOn ? 'text-gray-600' : ' text-[#d9d9d9]'} text-[15px] sm:text-base`}>{post?.text}</p>
             </div>
         </div>
         <div className='mt-4 px-4 sm:px-6 flex flex-col gap-3 w-full'>
@@ -111,7 +111,7 @@ const TailModal = () => {
                 onChange={(e) => setComment(e.target.value)}
                 rows="2"
                 placeholder='Tweet your reply'
-                className='bg-transparent outline-none text-[#d9d9d9] text-lg placeholder-gray-500 tracking-wide w-full min-h-[80px]'
+                className={`bg-transparent outline-none ${isOn ? 'text-gray-600' : 'text-[#d9d9d9]'} text-lg placeholder-gray-500 tracking-wide w-full min-h-[80px]`}
                />
             </div>
             </div>

@@ -4,7 +4,7 @@ import SolidHeartIcon from '@heroicons/react/24/solid/HeartIcon'
 import { useSession } from 'next-auth/react'
 import Moment from 'react-moment';
 import { useRecoilState } from 'recoil';
-import { modalState, postIdState } from '../atoms/modalAtom';
+import { modalState, ModeState, postIdState } from '../atoms/modalAtom';
 import { useRouter } from 'next/router';
 import { collection, deleteDoc, doc, onSnapshot, orderBy, query, setDoc } from 'firebase/firestore';
 import { db } from '../firebase';
@@ -18,6 +18,7 @@ const Post = ({ id, post, postPage }) => {
     const [comments, setComments] = useState([]);
     const [likes, setLikes] = useState([]);
     const [liked, setLiked] = useState(false);
+    const [isOn, setIsOn] = useRecoilState(ModeState);
 
     useEffect(
         () => onSnapshot(
@@ -59,7 +60,7 @@ const Post = ({ id, post, postPage }) => {
             <div className='flex flex-col space-y-2 w-full'>
                 <div className={`flex flex-col ${!postPage && "justify-between"}`}>
                    
-                    <div className='text-[#6e767d] flex items-end'>
+                    <div className={`${isOn ? 'text-gray-600' : 'text-[#6e767d' } flex items-end`}>
                     {postPage && (
                         <img
                             src={post?.userImg}
@@ -68,7 +69,7 @@ const Post = ({ id, post, postPage }) => {
                         />
                     )}
                         <div className='inline-block group'>
-                            <h4 className={`font-bold text-[15px] sm:text-base text-[#d9d9d9] group-hover:underline ${!postPage && "inline-block"}`}>{post?.username}</h4>
+                            <h4 className={`font-bold text-[15px] sm:text-base ${isOn ? 'text-black' : 'text-[#6e767d' }group-hover:underline ${!postPage && "inline-block"}`}>{post?.username}</h4>
                             <span className={`text-sm sm:text-[15px] ${!postPage && "ml-1.5"}`}>@{post?.tag}</span>
                         </div>{" "}
                         <span className='hover:underline text-sm sm:text-[15px] ml-3 mb-0.5'>
@@ -76,12 +77,12 @@ const Post = ({ id, post, postPage }) => {
                         </span>
                         {/* {!postPage && (<p className='text-[#d9d9d9] text-[15px] sm:text-base mt-0.5'>{post?.text}</p>)} */}
                            <div className='icon group flex-shrink-0 ml-auto'>
-                        <EllipsisHorizontalIcon className='h-5 text-[#6e767d] group-hover:text-[#1d9bf0]' />
+                        <EllipsisHorizontalIcon className={`h-5 ${isOn ? 'text-gray-600' : 'text-[#1d9bf0]'} `}/>
                     </div>
                     </div>
                  
                
-                        <p className='text-[#d9d9d9] text-[15px] py-3 sm:text-base mt-0.5'>{post?.text}</p>
+                        <p className={`${isOn ? 'text-gray-700' : 'text-[#d9d9d9] '}  text-[15px] py-3 sm:text-base mt-0.5`}>{post?.text}</p>
                   
                     <img src={post?.image} alt="" className={`${postPage ? "rounded-md" : "rounded-2xl"} max-h-[700px] object-cover mr-2`} />
                     <div className={`text-[#6e767d] flex justify-between w-[10/12] ${postPage && 'px-10'}`}>

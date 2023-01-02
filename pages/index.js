@@ -6,7 +6,7 @@ import Login from '../components/Login'
 import axios from 'axios'
 import TailModal from '../components/TailModal'
 import { useRecoilState } from 'recoil'
-import { modalState } from '../atoms/modalAtom'
+import { modalState, ModeState } from '../atoms/modalAtom'
 import Widgets from '../components/Widgets'
 
 export default function Home({
@@ -17,23 +17,24 @@ export default function Home({
 
   const { data:session } = useSession()
   const [isOpen , setIsOpen] = useRecoilState(modalState)
+  const [isOn, setIsOn] = useRecoilState(ModeState);
 
   if(!session) return <Login providers={providers}/>
 
-  return (
+   return (
     <div>
       <Head>
         <title>Twitter</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <main className='bg-black min-h-screen flex max-w-[1500px] mx-auto'>
+      <div className={`${isOn ? 'bg-white' : 'bg-black'} w-[100vw]`}>     
+      <main className={`${isOn ? 'bg-white' : 'bg-black'} min-h-screen flex max-w-[1500px] mx-auto`}>
         <Sidebar />
         <Feed/>
         <Widgets trendingResults={trendingResults} followResults={followResults}/>
         {isOpen && <TailModal/>}
       </main>
-   
+      </div>
     </div>
   )
 }

@@ -39,7 +39,7 @@ const Modal = ({ handleClose  }) => {
                          e.stopPropagation()
                         signOut()
                         }}
-                    className="text-[#d9d9d9] bg-[#272C30] flex items-center justify-center hoverAnimation rounded-xl shadow-xl absolute lg:inline bottom-[60px] right-[-144px] h-[53px] w-[205px] p-[16px] lg:right-0 lg:bottom-20 "
+                    className="text-[#d9d9d9] bg-[#272C30] z-50 flex items-center justify-center cursor-pointer hover:bg-gray-800 rounded-xl shadow-xl absolute lg:inline bottom-[50px] right-[-144px] h-[53px] w-[205px] p-[16px] md:right-30 md:bottom-8 lg:bottom-12"
                     variants={gifYouUp}
                     initial="hidden"
                     animate="visible"

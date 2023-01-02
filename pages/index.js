@@ -27,7 +27,7 @@ export default function Home({
         <title>Twitter</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className={`${isOn ? 'bg-white' : 'bg-black'} w-[100vw]`}>     
+      <div className={`${isOn ? 'bg-white' : 'bg-black'} overflow-x-hidden`}>     
       <main className={`${isOn ? 'bg-white' : 'bg-black'} min-h-screen flex max-w-[1500px] mx-auto`}>
         <Sidebar />
         <Feed/>

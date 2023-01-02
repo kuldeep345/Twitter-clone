@@ -52,7 +52,7 @@ const Sidebar = () => {
                 <Link href="/"> {isOn ? <Image src="/twitter.png" width={30} height={30} className="h-[3rem] w-[2.8rem]" alt="" priority />
                     : <Image src="https://rb.gy/ogau5a" width={34} height={34} className="pt-2" alt="" priority />}</Link>
             </div>
-            <div className='space-y-2.5 mt-4 mb-2.5 xl:ml-24'>
+            <div className={`space-y-1 ${!isOn && 'mt-1.5'} mb-2.5 xl:ml-24`}>
                 <Link href="/"><SidebarLink text="Home" Icon={HomeIcon} active /></Link>
                 <SidebarLink text="Explore" Icon={HashtagIcon} />
                 <SidebarLink text="Notifications" Icon={BellIcon} />
@@ -67,10 +67,10 @@ const Sidebar = () => {
                     <span className={`absolute bottom-[3px] left-[6px] font-bold ${isOn ? ' text-white' : 'text-black'}`}>on</span>
                 </div>
 
-                  <div className={`hidden w-[68px] h-[39px] relative ml-4 mb-4 px-1 py-1 ${isOn ? 'bg-black' : 'bg-white'} xl:flex  ${isOn ? 'justify-end' : 'justify-start'} rounded-full cursor-pointer`} data-isOn={isOn} onClick={toggleSwitch}>
-                    <span className={`absolute text-md top-[6px] left-[4px] font-bold ${isOn ? 'text-white' : 'text-black'}`}>off</span>
-                    <motion.div className={`w-[32px] h-[32px] my-auto z-50 ${isOn ? 'bg-white' : 'bg-black'} rounded-full`} layout transition={spring} />
-                    <span className={`absolute text-md top-[6px] right-[6px] font-bold ${isOn ? ' text-white' : 'text-black'}`}>on</span>
+                  <div className={`hidden w-[48px] h-[28px] relative ml-4 mb-4 px-1 py-1 ${isOn ? 'bg-black' : 'bg-white'} xl:flex  ${isOn ? 'justify-end' : 'justify-start'} rounded-full cursor-pointer`} data-isOn={isOn} onClick={toggleSwitch}>
+                    <span className={`absolute text-xs top-[6px] left-[4px] font-bold ${isOn ? 'text-white' : 'text-black'}`}>off</span>
+                    <motion.div className={`w-[20px] h-[20px] my-auto z-50 ${isOn ? 'bg-white' : 'bg-black'} rounded-full`} layout transition={spring} />
+                    <span className={`absolute text-xs top-[6px] right-[6px] font-bold ${isOn ? ' text-white' : 'text-black'}`}>on</span>
                 </div>
             </div>
             <button className='hidden xl:inline ml-auto bg-[#1d9bf0] text-white rounded-full w-56 h-[52px] text-lg font-bold shadow-md hover:bg-[#1a8cd8] '>Tweet
